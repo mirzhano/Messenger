@@ -1,8 +1,10 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
+import os
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', '91ac3e562f54b63fc55aa576c716f503398c6a8a10d9e605')  # Безопасный ключ из переменной окружения
+socketio = SocketIO(app, cors_allowed_origins="*")  # Разрешить CORS для WebSocket
 
 @app.route('/')
 def index():
